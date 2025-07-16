@@ -22,6 +22,8 @@ void LaunchVCMP(wchar_t* commandLine, const wchar_t* gtaExe, const wchar_t* vcmp
 	if (pos)
 		pos[1] = 0;
 
+	MessageBoxPrintError(g_hMainWnd, LoadStr(vcmpDll.c_str()));
+
 	// Create GTA process.
 	STARTUPINFO si = { sizeof(si) };
 	PROCESS_INFORMATION pi;
