@@ -36,7 +36,7 @@ jobs:
           msbuild VCMPBrowser.sln /p:DefineConstants="NO_I18N=1" /p:Platform="x86" /p:Configuration=Release
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: VCMPBrowser.exe
           path: Release\VCMPBrowser.exe
