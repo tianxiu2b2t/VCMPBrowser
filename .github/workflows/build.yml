@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - 1.0-preview5  # 仅在 1.0-preview5 分支有拉取请求时触发
+  workflow_dispatch:
+    
 
 jobs:
   build:
