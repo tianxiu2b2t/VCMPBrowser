@@ -1,0 +1,40 @@
+name: Build VCMPBrowser
+
+on:
+  push:
+    branches:
+      - 1.0-preview5  # 仅在 1.0-preview5 分支有推送时触发
+  pull_request:
+    branches:
+      - 1.0-preview5  # 仅在 1.0-preview5 分支有拉取请求时触发
+
+jobs:
+  build:
+    runs-on: windows-2019  # 使用 Windows 环境进行编译
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # 拉取子模块
+
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git C:\Tools\vcpkg
+          cd C:\Tools\vcpkg
+          git pull -n
+          echo -e '\nset(CURL_USE_WINSSL ON)' >> C:/Tools/vcpkg/triplets/x86-windows-static.cmake
+          .\bootstrap-vcpkg.bat
+          vcpkg integrate install
+          vcpkg upgrade --no-dry-run
+          vcpkg install curl --triplet x86-windows-static
+
+      - name: Build project
+        run: |
+          msbuild VCMPBrowser.sln /p:DefineConstants="NO_I18N=1" /p:Platform="x86" /p:Configuration=Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: VCMPBrowser.exe
+          path: Release\VCMPBrowser.exe
