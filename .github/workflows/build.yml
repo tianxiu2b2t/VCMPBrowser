@@ -25,8 +25,6 @@ jobs:
           git clone https://github.com/microsoft/vcpkg.git C:\Tools\vcpkg
           cd C:\Tools\vcpkg
           git pull -n
-          echo '\nset(CURL_USE_WINSSL ON)' >> C:/Tools/vcpkg/triplets/x86-windows-static.cmake
-          .\bootstrap-vcpkg.bat
           vcpkg integrate install
           vcpkg upgrade --no-dry-run
           vcpkg install curl --triplet x86-windows-static
