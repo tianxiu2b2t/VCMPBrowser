@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019  # 使用 Windows 环境进行编译
+    runs-on: windows-latest  # 使用 Windows 环境进行编译
 
     steps:
       - name: Checkout code
